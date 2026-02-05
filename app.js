@@ -6,6 +6,7 @@ const express = require('express');
 const expressLayout = require('express-ejs-layouts');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const connect = require('./src/config/db')
 
 // import routes
 const mainRouter = require('./src/routes/main.route');
@@ -24,6 +25,8 @@ app.use(expressLayout);
 app.set('layout', './layouts/main');
 app.set('view engine', 'ejs');
 
+// connectDB
+connect();
 // routes
 app.use('/', mainRouter);
 

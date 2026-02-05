@@ -232,6 +232,7 @@ img {
   font-size: 24px;
   cursor: pointer;
   transition: filter 0.1s;
+  height: 120px;
 }
 
 .article-ul li:not(:last-child) {
