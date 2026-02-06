@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700&display=swap');
-
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
 :root {
   --black: #1c1c1c;
   --gray: #7E7E7E;
@@ -297,6 +302,9 @@ img {
   padding: 10px 0;
 }
 
+.searchBtn {
+  cursor: pointer;
+}
 /* SeachBar */
 .searchBar {
   visibility: hidden;
@@ -325,6 +333,7 @@ img {
   right: 0;
   color: var(--gray-light);
   padding: 15px;
+  cursor: pointer;
 }
 
 

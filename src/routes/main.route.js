@@ -8,4 +8,6 @@ router.get('/about', mainRouters.getAbout);
 
 router.get('/post/:id', mainRouters.getPostPage);
 
+router.post('/search', mainRouters.getSearchTerm);
+
 module.exports = router;

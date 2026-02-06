@@ -10,6 +10,7 @@ const connect = require('./src/config/db')
 
 // import routes
 const mainRouter = require('./src/routes/main.route');
+const adminRouter = require('./src/routes/admin.route');
 
 // app init
 const app = express();
@@ -29,6 +30,7 @@ app.set('view engine', 'ejs');
 connect();
 // routes
 app.use('/', mainRouter);
+app.use('/admin', adminRouter);
 
 // server
 app.listen(PORT, () => {

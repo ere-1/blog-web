@@ -31,12 +31,27 @@ const getPostPage = async (req, res) => {
     }
 }
 
-
+const getSearchTerm = async (req,res) => {
+    try {
+        let search = req.body.searchTerm;
+        let searchFilter = search.replace(/[^a-zA-Z0-9]/g, '');
+        const data = await Post.find({
+            $or: [
+                {title: {$regex: new RegExp(searchFilter, 'i')}},
+                {body: {$regex: new RegExp(searchFilter, 'i')}}
+            ]
+        })
+        res.render('search', {data});
+    } catch (error) {
+        console.log(error);
+    }
+}
 const getAbout = (req, res) => {
     res.render('about')
 }
 module.exports = {
     getHome,
     getAbout,
-    getPostPage
+    getPostPage,
+    getSearchTerm
 };
