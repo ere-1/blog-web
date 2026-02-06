@@ -9,13 +9,17 @@ const getHome = async (req , res) => {
     let count = await Post.countDocuments();
     let nextPage = parseInt(page) +1;
     let hasNextPage = nextPage <= Math.ceil(count / perPage);
+    let adminToken = false;
 
+    if (req.cookies.token) {
+        adminToken = true
+    }
 
     res.render('index', {
         data,
         current: page,
-        nextPage: hasNextPage? nextPage : null
-        
+        nextPage: hasNextPage? nextPage : null,
+        adminToken
     });
 }
 
@@ -24,8 +28,12 @@ const getPostPage = async (req, res) => {
         
         const id = req.params.id;
         const data = await Post.findById({_id: id});
-    
-        res.render('post', {data});
+          let adminToken = false;
+
+        if (req.cookies.token) {
+            adminToken = true
+        }
+        res.render('post', {data, adminToken});
     } catch (error) {
         console.log(error)
     }
@@ -41,7 +49,12 @@ const getSearchTerm = async (req,res) => {
                 {body: {$regex: new RegExp(searchFilter, 'i')}}
             ]
         })
-        res.render('search', {data});
+          let adminToken = false;
+
+        if (req.cookies.token) {
+            adminToken = true
+        }
+        res.render('search', {data, adminToken});
     } catch (error) {
         console.log(error);
     }

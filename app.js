@@ -10,6 +10,7 @@ console.log(MongoStore);
 const path = require('path');
 const connect = require('./src/config/db')
 const session = require('express-session');
+const methodOverride = require('method-override')
 
 // import routes
 const mainRouter = require('./src/routes/main.route');
@@ -20,6 +21,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // middlewares
+app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());

@@ -53,11 +53,64 @@ const PostAdminPage = async (req,res) => {
 
 const getDashboardPage = async (req,res) => {
     try {
-        res.render('admin/dashboard', {layout: adminLayout});
+        const data = await Post.find().sort({createdAt: -1});
+
+        res.render('admin/dashboard', {layout: adminLayout, data: data});
+    } catch (error) {
+        console.log(error);
+    }
+}
+const addPostPage = async (req,res) => {
+    try {
+        res.render('admin/add-post', {layout: adminLayout});
+    } catch (error) {
+
+    }
+}
+
+const postAddPostPage = async (req,res)=> {
+    try {
+        const {title, body} = req.body;
+
+        const newPost = new Post({
+            title: title,
+            body: body
+        });
+        await Post.create(newPost);
+        const content = await Post.findOne({title: title});
+
+        res.redirect(`/post/${content._id}`);
+
     } catch (error) {
         
     }
 }
+const editPostPage = async (req,res) => {
+    try {
+        const data = await Post.findOne({_id: req.params.id});
+
+        res.render('admin/edit-post', {
+            data,
+            layout: adminLayout
+        })
+    } catch (error) {
+        
+    }
+}
+const editPostPagePost = async (req,res) => {
+    try {
+        const {title,body} = req.body;
+        await Post.findByIdAndUpdate(req.params.id, {
+            title: title,
+            body: body,
+            updateAt: Date.now()
+        })
+        res.redirect(`/post/${req.params.id}`);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 
 const PostAdminPageRegister = async (req,res) => {
     try {
@@ -78,5 +131,9 @@ module.exports = {
     PostAdminPage,
     PostAdminPageRegister,
     getDashboardPage,
+    addPostPage,
+    postAddPostPage,
+    editPostPagePost,
+    editPostPage,
     authMiddleware
 }

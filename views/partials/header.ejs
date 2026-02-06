@@ -11,6 +11,11 @@
              <li>
                 <a href="/contact" class="">contact</a>
             </li>
+            <% if (adminToken) { %>
+             <li>
+                <a href="/admin" class="">admin</a>
+            </li>
+            <% } %>
         </ul>
     </nav>
 
